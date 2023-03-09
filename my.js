@@ -19,6 +19,7 @@ createApp({
         new Todo("mozi"),
       ],
       editingTodoName: null,
+      newTodoName: null,
     }
   },
   methods: {
@@ -35,7 +36,13 @@ createApp({
     onDblClickTodoName(todo){
       todo.editing = true;
       this.editingTodoName = todo.name;
-    }
+    },
+    onEnterAddTodo(){
+      if (this.newTodoName.trim()) {
+        this.todoCollection.push(new Todo(this.newTodoName));
+        this.newTodoName = null;
+      }
+    },
   }
   
 }).mount("#app");

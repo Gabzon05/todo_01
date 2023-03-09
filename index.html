@@ -22,7 +22,12 @@
             Completed all/no
           </button>
           <div class="flex-grow-1 mb-0">
-            <input type="text" class="form-control" />
+            <input 
+            type="text" 
+            class="form-control" 
+            v-model="newTodoName"
+            @keyup.enter = "onEnterAddTodo()"
+            />
           </div>
         </div>
 
