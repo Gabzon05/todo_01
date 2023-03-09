@@ -44,7 +44,7 @@
               </div>
 
               <!-- todo name view -->
-              <span>{{todo.name}}</span>
+              <span :class="nameView(todo.completed)">{{todo.name}}</span>
 
               <!-- todo name edit -->
               <div class="flex-grow-1">

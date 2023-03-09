@@ -20,4 +20,9 @@ createApp({
       ]
     };
   },
+  methods: {
+    nameView(completed){
+      return completed ? "my-line-through my-green" : "my-red";
+    }
+  }
 }).mount("#app");
