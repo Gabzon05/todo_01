@@ -29,7 +29,9 @@
         <!-- card body -->
         <div class="card-body">
           <ul class="list-group">
-            <li class="list-group-item  d-flex flex-row align-items-center">
+            <li  
+             v-for="(todo,index) in todoCollection"
+            class="list-group-item  d-flex flex-row align-items-center">
               <!-- todo complete checkbox -->
               <div class="form-check m-0">
                 <input
@@ -40,7 +42,7 @@
               </div>
 
               <!-- todo name view -->
-              <span>todo 1</span>
+              <span>{{todo.name}}</span>
 
               <!-- todo name edit -->
               <div class="flex-grow-1">

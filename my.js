@@ -1,8 +1,8 @@
 const { createApp } = Vue;
 class Todo {
     constructor(name){
-        this.name = name,
-        this.completed = false,
+        this.name = name;
+        this.completed = false;
         this.editing = false;
     }
 }
@@ -12,7 +12,12 @@ createApp({
   data() {
     return {
       message: "Szia!",
-      x: 5
+      todoCollection: [
+        new Todo("reggeli"),
+        new Todo("utazás"),
+        new Todo("munka"),
+        new Todo("mozi"),
+      ]
     };
   },
 }).mount("#app");
