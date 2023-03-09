@@ -44,11 +44,16 @@
               </div>
 
               <!-- todo name view -->
-              <span :class="nameView(todo.completed)">{{todo.name}}</span>
+              <span :class="nameView(todo.completed)" v-show="!todo.editing">{{todo.name}}</span>
 
               <!-- todo name edit -->
               <div class="flex-grow-1">
-                <input type="text" class="form-control" />
+                <input 
+                type="text" 
+                class="form-control"
+                v-model ="todo.name"
+                v-show="todo.editing"
+                />
               </div>
     
             </li>
