@@ -1,0 +1,12 @@
+.my-container {
+    max-width: 576px;
+    border: 1px dashed black;
+}
+
+.my-line-through {
+    text-decoration: line-through;
+}
+
+.my-piros {
+    color: red;
+}
