@@ -1,4 +1,5 @@
 const { createApp } = Vue;
+
 class Todo {
     constructor(name){
         this.name = name;
@@ -11,8 +12,8 @@ class Todo {
 createApp({
   data() {
     return {
-      message: "Szia!",
-      todoCollection: [ 
+      message: "sSzia!",
+      todoCollection: [
         new Todo("reggeli"),
         new Todo("utazás"),
         new Todo("munka"),
@@ -20,6 +21,7 @@ createApp({
       ],
       editingTodoName: null,
       newTodoName: null,
+      filter: "all",
     }
   },
   methods: {
@@ -27,11 +29,11 @@ createApp({
       return completed ? "my-line-through my-green" : "my-red";
     },
     onEnterTodoName(todo){
+      console.log("heló");
       if (!todo.name.trim()) {
-        todo.name = this.editingTodoName
+        todo.name = this.editingTodoName;
       }
-      todo.editing = false
-      
+      todo.editing = false;
     },
     onDblClickTodoName(todo){
       todo.editing = true;
@@ -40,9 +42,38 @@ createApp({
     onEnterAddTodo(){
       if (this.newTodoName.trim()) {
         this.todoCollection.push(new Todo(this.newTodoName));
-        this.newTodoName = null;
       }
+      this.newTodoName = null;
     },
+    setFilter(filter){
+      this.filter = filter;
+    },
+    getFilterButtonClass(filter){
+      return {
+        "btn-outline-secondary" : filter != this.filter,
+        "btn-secondary" : filter == this.filter
+    }
+    }
+  },
+  computed:{
+    filteredTodoCollection(){
+      let vm = this;
+      return this.todoCollection.filter(function(todo){
+        switch(vm.filter){
+          case 'all':
+              return true;
+          case 'active':
+              return !todo.completed;
+          case 'completed':
+              return todo.completed;
+      }
+      })
+    },
+    counter(){
+      return this.todoCollection.length;
+    },
+    items(){
+      return this.counter > 1 ? "items": "item";
+    }
   }
-  
 }).mount("#app");
