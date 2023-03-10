@@ -34,6 +34,11 @@ createApp({
         todo.name = this.editingTodoName;
       }
       todo.editing = false;
+      
+    },
+    onEscapeTodoName(todo){
+      todo.editing= false;
+      this.editingTodoName= null;  
     },
     onDblClickTodoName(todo) {
       todo.editing = true;

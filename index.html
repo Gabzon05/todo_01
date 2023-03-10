@@ -66,6 +66,8 @@
                 v-model="todo.name"
                 v-show="todo.editing"
                 @keyup.enter="onEnterTodoName(todo)"
+                @keyup.esc="onEscapeTodoName(todo)"
+                @blur="onEscapeTodoName(todo)"
                 />
               </div>
             </li>
