@@ -174,3 +174,31 @@ Content-Type: application/json
     "date": "2022.10.13 01:35:00",
     "carId": 2
 }
+
+
+###----------------------------------------------------------------------###
+
+### Get todos
+GET  http://localhost:3000/todos
+
+### post todos
+post http://localhost:3000/todos
+Content-Type: application/json
+
+{
+    "name": "vásárlás"
+}
+
+
+### put trip by id
+put http://localhost:3000/todos/3
+Content-Type: application/json
+
+{
+    "name": "vásárlás",
+    "completed": 1
+    
+}
+
+### delete completed
+DELETE http://localhost:3000/todos/

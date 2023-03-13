@@ -13,18 +13,26 @@ createApp({
   data() {
     return {
       message: "sSzia!",
-      todoCollection: [
-        new Todo("reggeli"),
-        new Todo("utazás"),
-        new Todo("munka"),
-        new Todo("mozi"),
-      ],
+      todoCollection: [],
       editingTodoName: null,
       newTodoName: null,
       filter: "all",
+      url: "http://localhost:3000/todos",
+      Errormessage: null
     }
+
+  },
+  mounted(){
+    console.log("betoltodtem");
+    this.getTodos();
   },
   methods: {
+     async getTodos(){
+        const response = await fetch(this.url);
+        const todos = await response.json();
+        console.log(todos);
+        this.todoCollection = todos.data;
+    },
     nameView(completed) {
       return completed ? "my-line-through my-green" : "my-red";
     },
