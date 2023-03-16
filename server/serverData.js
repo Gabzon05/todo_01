@@ -594,10 +594,12 @@ app.put("/trips/:id", (req, res) => {
 });
 //#endregion trips
 
+
 //#region todos
 app.get("/todos", (req, res) => {
   let sql = `
-    SELECT * from todos`;
+  SELECT * FROM todos
+  `;
 
   pool.getConnection(function (error, connection) {
     if (error) {
@@ -617,8 +619,9 @@ app.post("/todos", (req, res) => {
   const newR = {
     name: sanitizeHtml(req.body.name)
   };
+
   let sql = `
-  INSERT todos 
+  INSERT INTO todos
   (name)
   VALUES
   (?)
@@ -647,10 +650,10 @@ app.put("/todos/:id", (req, res) => {
     completed: +sanitizeHtml(req.body.completed)
   };
   let sql = `
-    UPDATE todos SET
-    name = ?,
-    completed = ?
-    WHERE id = ?
+  UPDATE todos SET
+  name = ?,
+  completed = ?
+  WHERE id = ?
       `;
 
   pool.getConnection(function (error, connection) {
@@ -669,24 +672,24 @@ app.put("/todos/:id", (req, res) => {
   });
 });
 
-app.delete("/todos/:id", (req, res) => {
-  const id = req.params.id;
+app.delete("/todos", (req, res) => {
 
   let sql = `
-    DELETE FROM todos
-    WHERE id = ?`;
+  DELETE from todos
+  WHERE completed = 1`;
 
   pool.getConnection(function (error, connection) {
     if (error) {
       sendingGetError(res, "Server connecting error!");
       return;
     }
-    connection.query(sql, [id], function (error, result, fields) {
-      sendingDelete(res, error, result, id);
+    connection.query(sql, function (error, result, fields) {
+      sendingDelete(res, error, result, null);
     });
     connection.release();
   });
 });
+
 //#endregion todos
 
 function mySanitizeHtml(data) {

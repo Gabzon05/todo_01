@@ -33,12 +33,17 @@
 
         <!-- card body -->
         <div class="card-body">
-          <ul class="list-group">
 
-            <!-- server error -->
-            <div class="alert alert-danger" role="alert">
-              {{Errormessage}}
-            </div>
+          <!-- server error -->
+          <div class="alert alert-danger" role="alert"
+            v-if="errorMessage"
+          >
+            {{errorMessage}}
+          </div>
+
+          <ul class="list-group"
+          v-if="!errorMessage"
+          >
             <!-- ezt kell ismételgetni -->
             <li
               v-for="(todo, index) in filteredTodoCollection"
@@ -63,7 +68,7 @@
                 {{todo.name}}
               </span>
 
-              <!-- todo name edit -->
+              <!-- todo name edit (blur: fókusz elhagyása) -->
               <div class="flex-grow-1">
                 <input 
                 type="text" 
@@ -110,9 +115,8 @@
 
           <!-- Remove completed -->
           <button 
-          type="button" 
-          class="btn btn-link mr-3"
-          @click="onClickREmoveCompleted()"
+          type="button" class="btn btn-link mr-3"
+            @click="onClickRemoveCompleted()"
           >
             Remove complete
           </button>

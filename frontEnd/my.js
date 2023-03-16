@@ -8,7 +8,6 @@ class Todo {
   }
 }
 
-
 createApp({
   data() {
     return {
@@ -18,21 +17,33 @@ createApp({
       newTodoName: null,
       filter: "all",
       url: "http://localhost:3000/todos",
-      Errormessage: null
-    }
-
+      errorMessage: null,
+    };
   },
   mounted(){
-    console.log("betoltodtem");
     this.getTodos();
   },
   methods: {
-     async getTodos(){
-        const response = await fetch(this.url);
-        const todos = await response.json();
-        console.log(todos);
-        this.todoCollection = todos.data;
+    async getTodos(){
+        try {
+          this.errorMessage = null;
+          const response = await fetch(this.url);
+          if (!response.ok) {
+            this.errorMessage="#1 Szerver hiba, próbálkozzon később!";
+            return;
+          }
+          const todos = await response.json();
+          console.log(todos.data);
+          if (!todos.success) {
+            this.errorMessage="#2 Szerver hiba, próbálkozzon később!";
+            return;
+          }
+          this.todoCollection = todos.data;
+        } catch (error) {
+          this.errorMessage="#0 Szerver hiba, próbálkozzon később!";
+        }
     },
+    postTodo(){},
     nameView(completed) {
       return completed ? "my-line-through my-green" : "my-red";
     },
@@ -42,11 +53,10 @@ createApp({
         todo.name = this.editingTodoName;
       }
       todo.editing = false;
-      
     },
     onEscapeTodoName(todo){
-      todo.editing= false;
-      this.editingTodoName= null;  
+      todo.editing =false;
+      this.editingTodoName = null;
     },
     onDblClickTodoName(todo) {
       todo.editing = true;
@@ -54,7 +64,8 @@ createApp({
     },
     onEnterAddTodo() {
       if (this.newTodoName.trim()) {
-        this.todoCollection.push(new Todo(this.newTodoName));
+        //this.todoCollection.push(new Todo(this.newTodoName));
+        this.postTodo();
       }
       this.newTodoName = null;
     },
@@ -64,10 +75,10 @@ createApp({
     getFilterButtonClass(filter) {
       return {
         "btn-outline-secondary": filter != this.filter,
-        "btn-secondary": filter == this.filter
-      }
+        "btn-secondary": filter == this.filter,
+      };
     },
-    onClickREmoveCompleted(){
+    onClickRemoveCompleted(){
       this.todoCollection = this.todoCollection.filter((todo)=>{
         return !todo.completed;
       });
@@ -78,20 +89,20 @@ createApp({
       let vm = this;
       return this.todoCollection.filter(function (todo) {
         switch (vm.filter) {
-          case 'all':
+          case "all":
             return true;
-          case 'active':
+          case "active":
             return !todo.completed;
-          case 'completed':
+          case "completed":
             return todo.completed;
         }
-      })
+      });
     },
     counter() {
       return this.todoCollection.length;
     },
     items() {
       return this.counter > 1 ? "items" : "item";
-    }
-  }
+    },
+  },
 }).mount("#app");
