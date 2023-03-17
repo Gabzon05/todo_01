@@ -18,12 +18,23 @@ createApp({
       filter: "all",
       url: "http://localhost:3000/todos",
       errorMessage: null,
+      userName: null,
+    password: null,
+    accessToken: null,
+    refreshToken: null,
+    userId: 0,
+    number: 0,
+    loginSuccess: 0,
+    loginError: 0,
     };
   },
   mounted(){
     this.getTodos();
   },
   methods: {
+    login(){
+     this.loginSuccess = 1;
+    },
     async getTodos(){
         try {
           this.errorMessage = null;

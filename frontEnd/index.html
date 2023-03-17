@@ -5,17 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Todo</title>
     <link
+
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="my.css" />
   </head>
   <body>
     <div class="container-fluid my-container mt-5 p-0" id="app">
+
+      <!-- logout -->
+
+      <div class="mb-5 d-flex flex-row align-items-center justify-content-end"
+        v-if="loginSuccess" 
+      >
+        <p class="m-0">{{userName}}</p>
+        <button type="button" class="btn btn-outline-danger ms-3" @click="logout()">
+          <i class="bi bi-box-arrow-left"></i> logout
+        </button>
+      </div>
+      
+
+      <!-- login -->
+
+      <div v-if="!loginSuccess" class="p-3">
+          <!-- user name -->
+        <div class="mb-3">
+          <label for="userName" class="form-label">User name:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="userName"
+            v-model="userName"
+          />
+        </div>
+        <!-- password -->
+        <div class="mb-3">
+          <label for="password" class="form-label">password:</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            v-model="password"
+          />
+        </div>
+        <!-- login -->
+        <button type="button" class="btn btn-primary mb-3"
+            @click="login()"
+        >
+            Login
+        </button>
+ 
+        <div v-if="loginError" class="alert alert-danger" role="alert">
+            Hibás user név vagy jelszó
+        </div>
+      </div>
+
       <!-- card -->
-      <div class="card">
+      <div v-if="loginSuccess" class="card" >
         <!-- card header -->
         <div class="card-header d-flex flex-row align-items-center">
           <button type="button" class="btn btn-primary">
