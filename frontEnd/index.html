@@ -52,11 +52,13 @@
               <!-- todo complete checkbox -->
               <div class="form-check m-0">
                 <input 
+                :id="`c${index}`"
+                v-model="todo.completed"
+                @change="onClickCompleted(index)"
                 class="form-check-input" 
                 type="checkbox" 
                 value=""
-                :id="`c${index}`"
-                v-model="todo.completed"/>
+                />
               </div>
 
               <!-- todo name view -->
@@ -73,7 +75,7 @@
                 <input 
                 type="text" 
                 class="form-control" 
-                v-model="todo.name"
+                v-model="editingTodoName"
                 v-show="todo.editing"
                 @keyup.enter="onEnterTodoName(todo)"
                 @keyup.esc="onEscapeTodoName(todo)"

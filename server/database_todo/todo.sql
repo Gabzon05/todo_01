@@ -1,5 +1,5 @@
 # users tábla létrehozása
-CREATE TABLE todo.users (
+CREATE TABLE todo2.users (
   id INT(11) NOT NULL AUTO_INCREMENT,
   firstName VARCHAR(50) DEFAULT NULL,
   lastName VARCHAR(50) DEFAULT NULL,
@@ -54,4 +54,6 @@ UPDATE todos SET
 # delete
 DELETE from todos
   WHERE completed = 1;
+
+select * from users;
 

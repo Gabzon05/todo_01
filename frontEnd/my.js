@@ -38,21 +38,97 @@ createApp({
             this.errorMessage="#2 Szerver hiba, próbálkozzon később!";
             return;
           }
-          this.todoCollection = todos.data;
+          const t = todos.data.map((d)=>{
+            d.completed = d.completed ? true: false;
+            return d;
+          })
+          this.todoCollection = t;
         } catch (error) {
           this.errorMessage="#0 Szerver hiba, próbálkozzon később!";
         }
     },
-    postTodo(){},
+    async postTodo(){
+      const newTodo = {
+        name: this.newTodoName
+      }
+      const param = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(newTodo)
+      }
+      try {
+        this.errorMessage = null;
+        const response = await fetch(this.url, param);
+        if (!response.ok) {
+          this.errorMessage="#1 Szerver hiba, próbálkozzon később!";
+          return;
+        }
+        this.getTodos();
+      } catch (error) {
+        this.errorMessage="#0 Szerver hiba, próbálkozzon később!";
+      }
+    },
+    async putTodo(todo){
+      const id = todo.id;
+      const newTodo = {
+        name: todo.name,
+        completed: todo.completed ? 1 : 0
+      }
+      const param = {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(newTodo)
+      }
+      const url = `${this.url}/${id}`;
+
+      console.log("param", param);
+      try {
+        this.errorMessage = null;
+        const response = await fetch(url, param);
+        if (!response.ok) {
+          this.errorMessage="#1 Szerver hiba, próbálkozzon később!";
+          return;
+        }
+        this.getTodos();
+      } catch (error) {
+        this.errorMessage="#0 Szerver hiba, próbálkozzon később!";
+      }
+    },
+    async deleteCompleted(){
+      const param = {
+        method: 'DELETE'
+      }
+      try {
+        this.errorMessage = null;
+        const response = await fetch(this.url, param);
+        if (!response.ok) {
+          this.errorMessage="#1 Szerver hiba, próbálkozzon később!";
+          return;
+        }
+        this.getTodos();
+      } catch (error) {
+        this.errorMessage="#0 Szerver hiba, próbálkozzon később!";
+      }
+
+    },
+    onClickCompleted(index){
+      const todo = this.todoCollection[index];
+      this.putTodo(todo);
+    },
     nameView(completed) {
       return completed ? "my-line-through my-green" : "my-red";
     },
     onEnterTodoName(todo) {
-      console.log("heló");
-      if (!todo.name.trim()) {
-        todo.name = this.editingTodoName;
-      }
       todo.editing = false;
+      if (this.editingTodoName.trim()) {
+        todo.name = this.editingTodoName;
+        this.putTodo(todo);
+      }
+      editingTodoName = null;
     },
     onEscapeTodoName(todo){
       todo.editing =false;
@@ -79,9 +155,7 @@ createApp({
       };
     },
     onClickRemoveCompleted(){
-      this.todoCollection = this.todoCollection.filter((todo)=>{
-        return !todo.completed;
-      });
+      this.deleteCompleted();
     },
   },
   computed: {

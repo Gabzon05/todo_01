@@ -5,13 +5,13 @@
   <Properties>
     <Type>SQL Document Design</Type>
     <DatabaseProvider>59f90733-4d68-4fdf-82a7-f0fcbf5460aa</DatabaseProvider>
-    <ProviderVersion>8.2.23.0</ProviderVersion>
+    <ProviderVersion>8.1.22.0</ProviderVersion>
     <SchemaVersion>2.0</SchemaVersion>
   </Properties>
   <Connection Name="localhost">
     <Category>00000000-0000-0000-0000-000000000000</Category>
     <ConnectionString>User Id=root;Host=localhost;Character Set=utf8</ConnectionString>
-    <Database>todo</Database>
+    <Database>todo2</Database>
   </Connection>
   <Views ShowAdditionalViews="False" IsLayoutActiveAttribute="True" MainViewAttribute="Code" MainViewScale="50">
     <View Name="Design" Visible="False" />
