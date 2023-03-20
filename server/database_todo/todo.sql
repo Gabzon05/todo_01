@@ -41,19 +41,28 @@ SELECT * FROM todos;
 
 # post
 INSERT INTO todos
-  (name)
+  (name, userId)
   VALUES
-  ('vásárlás');
+  ('vásárlás', 24);
 
 # put
 UPDATE todos SET
   name = 'szerviz',
-  completed = 1
+  completed = 1, 
+  userId = 23
   WHERE id = 3;
 
 # delete
 DELETE from todos
-  WHERE completed = 1;
+  WHERE completed = 1 and userId = 24;
+
+select * from todos
+  where userId = 24;
+
+
+select * from todos;
+
+
 
 select * from users;
 

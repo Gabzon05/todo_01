@@ -3,8 +3,8 @@ post http://localhost:4000/login
 Content-Type: application/json
 
 {
-    "userName": "feri",
-    "password": "jozsi123"
+    "userName": "endre",
+    "password": "123"
 }
 
 ### token kérés
@@ -175,17 +175,21 @@ Content-Type: application/json
     "carId": 2
 }
 
-### -------------------------------------------------------------------------------------
-### -------------------------------------------------------------------------------------
+### --------------------------------------
 ### get todos
 get http://localhost:3000/todos
+
+### get todos by userId
+get http://localhost:3000/todos/24
+
 
 ### post todos
 post http://localhost:3000/todos
 Content-Type: application/json
 
 {
-    "name": "vásárlás"
+    "name": "vásárlás kifli",
+    "userId": 24
 }
 
 
@@ -195,8 +199,12 @@ Content-Type: application/json
 
 {
     "name": "vásárlás ruha",
-    "completed": 1
+    "completed": 1, 
+    "userId": 23
 }
 
 ### delete completed
 delete http://localhost:3000/todos
+
+### delete completed where userId=24
+delete http://localhost:3000/todos/24
